@@ -1,16 +1,17 @@
 {
-  "name": "electricuan comunity",
+  "name": "electrician-comunity",
   "version": "1.0.0",
   "description": "\"Social Network for Electricals\"",
   "main": "server.js",
   "scripts": {
-    "start" : "node server",
+    "start": "node server",
     "server": "nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mikayel",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.1",
     "express": "^4.17.1",
