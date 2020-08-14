@@ -39,7 +39,7 @@ router.get("/", isAuth, async (req, res, next) => {
   res.send("Auth route!");
 });
 
-// @route   Post api/users
+// @route   Post api/auth
 // @desc    Register route
 // @access  Public
 router.post(
@@ -108,7 +108,7 @@ router.post(
   }
 );
 
-// @route   Post api/users
+// @route   Post api/auth
 // @desc    Authenticate user & get route
 // @access  Public
 router.post(
@@ -151,7 +151,7 @@ router.post(
       jwt.sign(
         payload,
         config.get("jwtSecret"),
-        { expiresIn: 360000 },
+        { expiresIn: 3600 },
         (err, token) => {
           if (err) {
             throw err;
