@@ -1,7 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import uuid from 'uuid';
 
-const SignUp = () => {
+import { setAlert, removeAlert } from '../../redux/alert/alert.action';
+import AlertActionTypes from '../../redux/alert/alert.types';
+
+const SignUp = ({ setAlert, dispatch }) => {
 	const [formData, setFormData] = useState({
 		email: '',
 		name: '',
@@ -19,7 +24,8 @@ const SignUp = () => {
 	const handleSubmit = async (evt) => {
 		evt.preventDefault();
 		if (password !== password2) {
-			console.log("Passwords don't match.");
+			const id = uuid.v4();
+			setAlert("Passwords don't match.", 'danger', id);
 		} else {
 			const newUser = {
 				email,
@@ -32,14 +38,14 @@ const SignUp = () => {
 					headers: {
 						'Content-Type': 'application/json',
 					},
-        };
-        
-        const body = JSON.stringify(newUser);
-        const res = await axios.post('http://localhost:5000/api/auth/signup', body, config);
-        console.log(res.data)
+				};
+
+				const body = JSON.stringify(newUser);
+				const res = await axios.post('http://localhost:5000/api/auth/signup', body, config);
+				console.log(res.data);
 			} catch (error) {
-        console.log(error.response.data);
-      }
+				console.log(error.response.data);
+			}
 		}
 	};
 	const { email, name, password, password2 } = formData;
@@ -104,4 +110,11 @@ const SignUp = () => {
 	);
 };
 
-export default SignUp;
+const mapDispatchToProps = {
+	setAlert: (msg, alertType, id) => dispatch => {
+		dispatch(setAlert(msg, alertType, id));
+		setTimeout(() => {dispatch(removeAlert(id))}, 5000)
+	},
+};
+
+export default connect(null, mapDispatchToProps)(SignUp);

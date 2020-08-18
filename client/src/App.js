@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import './App.css';
 import { Switch, Route } from "react-router-dom";
+import Alert from "./components/alert/alert.component";
 
 import Landing from "./pages/landing/landing.component";
 import Navbar from "./components/navbar/navbar.component";
@@ -13,6 +14,7 @@ const App = () => {
       <Navbar/>
       <Route exact path="/" component={Landing}/>
       <section className="container">
+        <Alert/>
         <Switch>
           <Route exact path="/signup" component={SignUp}/>
           <Route exact path="/login" component={Login}/>
