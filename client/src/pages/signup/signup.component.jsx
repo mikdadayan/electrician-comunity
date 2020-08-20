@@ -1,18 +1,19 @@
 import React, { Fragment, useState } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
-import uuid from 'uuid';
+import PropTypes from 'prop-types';
 
-import { setAlert, removeAlert } from '../../redux/alert/alert.action';
-import AlertActionTypes from '../../redux/alert/alert.types';
+import { setAlert } from '../../redux/alert/alert.action';
+import { signupUser } from '../../redux/auth/auth.actions';
 
-const SignUp = ({ setAlert, dispatch }) => {
+const SignUp = ({ setAlert, signupUser }) => {
 	const [formData, setFormData] = useState({
 		email: '',
 		name: '',
 		password: '',
 		password2: '',
 	});
+
+	const { email, name, password, password2 } = formData;
 
 	const handleChange = (evt) => {
 		setFormData({
@@ -24,31 +25,30 @@ const SignUp = ({ setAlert, dispatch }) => {
 	const handleSubmit = async (evt) => {
 		evt.preventDefault();
 		if (password !== password2) {
-			const id = uuid.v4();
-			setAlert("Passwords don't match.", 'danger', id);
+			setAlert("Passwords don't match.", 'danger');
 		} else {
-			const newUser = {
-				email,
-				name,
-				password,
-			};
+			signupUser(name, email, password);
+			// const newUser = {
+			// 	email,
+			// 	name,
+			// 	password,
+			// };
 
-			try {
-				const config = {
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				};
+			// try {
+			// 	const config = {
+			// 		headers: {
+			// 			'Content-Type': 'application/json',
+			// 		},
+			// 	};
 
-				const body = JSON.stringify(newUser);
-				const res = await axios.post('http://localhost:5000/api/auth/signup', body, config);
-				console.log(res.data);
-			} catch (error) {
-				console.log(error.response.data);
-			}
+			// 	const body = JSON.stringify(newUser);
+			// 	const res = await axios.post('http://localhost:5000/api/auth/signup', body, config);
+			// 	console.log(res.data);
+			// } catch (error) {
+			// 	console.log(error.response.data);
+			// }
 		}
 	};
-	const { email, name, password, password2 } = formData;
 	return (
 		<Fragment>
 			<h1 className="large text-primary">Sign Up</h1>
@@ -110,11 +110,26 @@ const SignUp = ({ setAlert, dispatch }) => {
 	);
 };
 
-const mapDispatchToProps = {
-	setAlert: (msg, alertType, id) => dispatch => {
-		dispatch(setAlert(msg, alertType, id));
-		setTimeout(() => {dispatch(removeAlert(id))}, 5000)
-	},
+SignUp.propTypes = {
+	setAlert: PropTypes.func.isRequired,
+	signupUser: PropTypes.func.isRequired,
 };
+
+// const mapDispatchToProps = {
+// 	setAlert: (msg, alertType, id) => (dispatch) => {
+// 		dispatch(setAlert(msg, alertType, id));
+// 		setTimeout(() => {
+// 			dispatch(removeAlert(id));
+// 		}, 5000);
+// 	},
+// };
+
+// const mapDispatchToProps = (dispatch) => ({
+// 	setAlert: (msg, alertType, id) => dispatch(setAlert(msg, alertType, id))
+// })
+
+// there is two ways to define mapDispatchToProps(as function or as an object),
+// in these case object(recomended if there is not need optional configuration)
+const mapDispatchToProps = { setAlert, signupUser };
 
 export default connect(null, mapDispatchToProps)(SignUp);
