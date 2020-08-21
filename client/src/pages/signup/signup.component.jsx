@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 
 import { setAlert } from '../../redux/alert/alert.action';
 import { signupUser } from '../../redux/auth/auth.actions';
+import { Redirect } from 'react-router-dom';
 
-const SignUp = ({ setAlert, signupUser }) => {
+const SignUp = ({ setAlert, signupUser, isAuthenticated }) => {
 	const [formData, setFormData] = useState({
 		email: '',
 		name: '',
@@ -49,6 +50,10 @@ const SignUp = ({ setAlert, signupUser }) => {
 			// }
 		}
 	};
+	if (isAuthenticated) {
+		return <Redirect to="/dashboard" />;
+	}
+
 	return (
 		<Fragment>
 			<h1 className="large text-primary">Sign Up</h1>
@@ -113,6 +118,7 @@ const SignUp = ({ setAlert, signupUser }) => {
 SignUp.propTypes = {
 	setAlert: PropTypes.func.isRequired,
 	signupUser: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool.isRequired,
 };
 
 // const mapDispatchToProps = {
@@ -132,4 +138,8 @@ SignUp.propTypes = {
 // in these case object(recomended if there is not need optional configuration)
 const mapDispatchToProps = { setAlert, signupUser };
 
-export default connect(null, mapDispatchToProps)(SignUp);
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -1,6 +1,6 @@
 import AuthActionTypes from './auth.types';
 
-const { SIGNUP_SUCCESS, SIGNUP_FAIL, USER_LOADED, AUTH_ERROR } = AuthActionTypes;
+const { SIGNUP_SUCCESS, SIGNUP_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL } = AuthActionTypes;
 
 const INITIAL_STATE = {
 	user: null,
@@ -12,9 +12,12 @@ const INITIAL_STATE = {
 const authReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case SIGNUP_SUCCESS:
+		case LOGIN_SUCCESS:
+			console.log(action.payload.token)
 			localStorage.setItem('token', action.payload.token);
 			return {
 				...state,
+				...action.payload,
 				isAuthenticated: true,
 				loading: false,
 			};
@@ -25,9 +28,10 @@ const authReducer = (state = INITIAL_STATE, action) => {
 				loading: false,
 				user: action.payload,
 			};
-
+					
 		case SIGNUP_FAIL:
 		case AUTH_ERROR:
+		case LOGIN_FAIL:
 			localStorage.removeItem('token');
 			return {
 				...state,
