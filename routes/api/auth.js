@@ -20,9 +20,7 @@ const isAuth = require('../../middlewares/is-auth');
 // @desc    Test route
 // @access  Public
 router.get('/', isAuth, async (req, res, next) => {
-	// console.log("^^^^^^^^");
 	try {
-		// console.log("%%%%%%%5");
 		const user = await User.findById({ _id: req.user.id }).select('name email');
 		res.status(200).json({
 			user: {
@@ -30,7 +28,6 @@ router.get('/', isAuth, async (req, res, next) => {
 				email: user.email,
 			},
 		});
-		console.log(user);
 	} catch (error) {
 		return res.status(500).json({
 			msg: error,
@@ -117,7 +114,6 @@ router.post(
 
 		const { email, password } = req.body;
 		try {
-			console.log('**********');
 
 			let user = await User.findOne({ email });
 			if (!user) {

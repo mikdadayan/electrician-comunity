@@ -52,7 +52,6 @@ router.post('/', [auth, check('text', 'Text is required').not().isEmpty()], asyn
 router.get('/', auth, async (req, res, next) => {
 	try {
 		const posts = await Post.find().sort({ date: -1 });
-		console.log(posts);
 		res.status(200).json({
 			msg: 'All posts fetched',
 			posts: posts,
