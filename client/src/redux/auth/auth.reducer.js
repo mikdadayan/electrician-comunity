@@ -1,6 +1,6 @@
 import AuthActionTypes from './auth.types';
 
-const { SIGNUP_SUCCESS, SIGNUP_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL } = AuthActionTypes;
+const { SIGNUP_SUCCESS, SIGNUP_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS } = AuthActionTypes;
 
 const INITIAL_STATE = {
 	user: null,
@@ -31,6 +31,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
 		case SIGNUP_FAIL:
 		case AUTH_ERROR:
 		case LOGIN_FAIL:
+		case LOGOUT_SUCCESS: 
 			localStorage.removeItem('token');
 			return {
 				...state,

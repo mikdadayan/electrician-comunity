@@ -229,9 +229,9 @@ router.delete('/comment/:postId/:comId', auth, async (req, res, next) => {
 
 		const newPost = await post.save();
 		res.status(200).json({
-			msg: "Comment deleted.",
-			post: newPost
-		})
+			msg: 'Comment deleted.',
+			post: newPost,
+		});
 	} catch (error) {
 		console.error(error.message);
 		res.status(500).json({ error: 'Server Error...' });
