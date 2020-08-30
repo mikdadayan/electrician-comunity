@@ -42,7 +42,7 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, loading } }) => {
 						<Fragment>
 							<li>
 								<NavLink activeStyle={{ color: '#ff9138' }} to="/dashboard">
-									<i className="fab fa-user"> </i>
+									<i class="fas fa-columns">{' '}</i>
 									<span className="hide-sm">Dashboard</span>
 								</NavLink>
 							</li>
