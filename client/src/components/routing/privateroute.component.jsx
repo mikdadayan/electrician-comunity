@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
-export const PrivateRoute = ({ component: Component, auth, ...rest }) => {
-	console.log(auth)
+const PrivateRoute = ({ component: Component, auth: {isAuthenticated, loading}, ...rest }) => {
+	// console.log(auth)
 	return <Route
 		{...rest}
 		render={(props) => (!isAuthenticated && !loading ? <Redirect to="/login" /> : <Component {...props} />)}

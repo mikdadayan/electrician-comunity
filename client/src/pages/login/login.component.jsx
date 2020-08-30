@@ -30,9 +30,10 @@ const Login = ({ loginUser, setAlert, isAuthenticated }) => {
 		}
 	};
 
-	// if (isAuthenticated) {
-	// 	return <Redirect to="/dashboard" />;
-	// }
+	if (isAuthenticated) {
+		console.log("REDIRECTED")
+		return <Redirect to="/dashboard" />;
+	}
 
 	return (
 		<Fragment>

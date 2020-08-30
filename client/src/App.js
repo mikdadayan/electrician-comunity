@@ -11,10 +11,11 @@ import setAuthToken from './redux/utils/setAuthToken';
 import { loadUser } from './redux/auth/auth.actions';
 
 import './App.css';
-import { PrivateRoute } from './components/routing/privateroute.component';
-import { Dashboard } from './pages/dashboard/dashboard.component';
+import PrivateRoute from './components/routing/privateroute.component';
+import Dashboard from './pages/dashboard/dashboard.component';
 
 if (localStorage.token) {
+	console.log(localStorage.token)
 	setAuthToken(localStorage.token);
 }
 

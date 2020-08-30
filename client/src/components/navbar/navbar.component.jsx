@@ -20,7 +20,7 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, loading } }) => {
 			<ul>
 				<li>
 					<NavLink activeStyle={{ color: '#ff9138' }} to="/dev">
-						<i class="fab fa-wpbeginner"></i>
+						<i className="fab fa-wpbeginner"> </i>
 						Engineers
 					</NavLink>
 				</li>
@@ -39,12 +39,20 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, loading } }) => {
 							</li>
 						</Fragment>
 					) : (
-						<li>
-							<NavLink onClick={handleClick} to="#!">
-								<i class="fas fa-sign-out-alt"></i>
-								<span className="hide-sm">Log Out</span>
-							</NavLink>
-						</li>
+						<Fragment>
+							<li>
+								<NavLink activeStyle={{ color: '#ff9138' }} to="/dashboard">
+									<i className="fab fa-user"> </i>
+									<span className="hide-sm">Dashboard</span>
+								</NavLink>
+							</li>
+							<li>
+								<NavLink onClick={handleClick} to="#!">
+									<i className="fas fa-sign-out-alt"></i>
+									<span className="hide-sm">Log Out</span>
+								</NavLink>
+							</li>
+						</Fragment>
 					))}
 			</ul>
 		</nav>
