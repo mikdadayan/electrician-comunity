@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
 import { getCurrentUserProfile } from '../../redux/profile/profile.actions';
+import setAuthToken from '../../redux/utils/setAuthToken';
+import Spinner from '../../components/spinner/spinner.component';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { loadUser } from '../../redux/auth/auth.actions';
+import { Link } from 'react-router-dom';
 
-export const Dashboard = ({getCurrentUserProfile}) => {
+export const Dashboard = ({ getCurrentUserProfile, loadUser, auth: { user }, profile: { loading, profile } }) => {
 	// console.log(props);
 	useEffect(() => {
+		setAuthToken(localStorage.token);
+		loadUser();
 		getCurrentUserProfile();
 	}, []);
-	return <div>Dashboard</div>;
+
+	return loading && profile === null ? (
+		<Spinner />
+	) : (
+		<Fragment>
+			<h1 className="large text-primary">Dashboard</h1>
+			<p className="lead">
+				<FontAwesomeIcon icon={['fas', 'user']} /> Welcome {user && user.name}
+			</p>
+			{profile !== null ? (<Fragment>has</Fragment>) : (<Fragment>
+				<p>You have not yet setup a profile, please add some info</p>
+				<Link to="/create-profile" className="btn btn-primary my-1" >
+					Create Profile
+				</Link>
+			</Fragment>)}
+		</Fragment>
+	);
 };
 
 Dashboard.propTypes = {
@@ -19,10 +42,9 @@ Dashboard.propTypes = {
 	profile: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  profile: state.profile,
-  auth: state.auth
+const mapStateToProps = (state) => ({
+	profile: state.profile,
+	auth: state.auth,
 });
 
-
-export default connect(mapStateToProps, {getCurrentUserProfile})(Dashboard);
+export default connect(mapStateToProps, { getCurrentUserProfile, loadUser })(Dashboard);

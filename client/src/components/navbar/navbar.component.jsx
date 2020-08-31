@@ -1,13 +1,16 @@
 import React, { Fragment } from 'react';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import { Link, NavLink, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { logoutUser } from '../../redux/auth/auth.actions';
 
-const Navbar = ({ logoutUser, auth: { isAuthenticated, loading } }) => {
+const Navbar = ({ logoutUser, auth: { isAuthenticated, loading }, history }) => {
 	const handleClick = () => {
 		logoutUser();
+		console.log('Worked!');
+		// history.push('/');
 	};
 
 	return (
@@ -17,44 +20,46 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, loading } }) => {
 					<i className="fas fa-bolt"></i> Electricians
 				</Link>
 			</h1>
-			<ul>
-				<li>
-					<NavLink activeStyle={{ color: '#ff9138' }} to="/dev">
-						<i className="fab fa-wpbeginner"> </i>
-						Engineers
-					</NavLink>
-				</li>
+			
 				{!loading &&
 					(!isAuthenticated ? (
-						<Fragment>
+						<ul>
 							<li>
-								<NavLink activeStyle={{ color: '#ff9138' }} to="/signup">
+								<NavLink activeStyle={{color: "#ff9138"}}  to="/dev">
+									{/* <i className="fab fa-wpbeginner"> </i> */}
+									<FontAwesomeIcon icon={['fab', 'wpbeginner']} />
+									Engineers
+								</NavLink>
+							</li>
+							<li>
+								<NavLink activeStyle={{color: "#ff9138"}} to="/signup">
 									Sign Up
 								</NavLink>
 							</li>
 							<li>
-								<NavLink activeStyle={{ color: '#ff9138' }} to="/login">
+								<NavLink activeStyle={{color: "#ff9138"}} to="/login">
 									Login
 								</NavLink>
 							</li>
-						</Fragment>
+						</ul>
 					) : (
-						<Fragment>
+						<ul>
 							<li>
-								<NavLink activeStyle={{ color: '#ff9138' }} to="/dashboard">
-									<i class="fas fa-columns">{' '}</i>
-									<span className="hide-sm">Dashboard</span>
+								<NavLink activeStyle={{color: "#ff9138"}} to="/dashboard">
+									{/* <i className="fas fa-columns"> </i> */}
+									<FontAwesomeIcon icon={['fas', 'columns']} />
+									<span className="hide-sm"> Dashboard</span>
 								</NavLink>
 							</li>
 							<li>
-								<NavLink onClick={handleClick} to="#!">
-									<i className="fas fa-sign-out-alt"></i>
-									<span className="hide-sm">Log Out</span>
+								<NavLink  onClick={handleClick} to="#!">
+									{/* <i className="fas fa-sign-out-alt"></i> */}
+									<FontAwesomeIcon icon={['fas', 'sign-out-alt']} />
+									<span className="hide-sm"> Log Out</span>
 								</NavLink>
 							</li>
-						</Fragment>
+						</ul>
 					))}
-			</ul>
 		</nav>
 	);
 };

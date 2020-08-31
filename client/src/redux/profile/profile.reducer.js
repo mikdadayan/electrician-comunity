@@ -1,6 +1,6 @@
 import ProfileActionTypes from './profile.types';
 
-const { PROFILE_ERR, GET_PROFILE } = ProfileActionTypes;
+const { PROFILE_ERROR, GET_PROFILE, CLEAR_PROFILE } = ProfileActionTypes;
 const INITIAL_STATE = {
 	profile: null,
 	profiles: [],
@@ -14,13 +14,20 @@ const profileReducer = (state = INITIAL_STATE, action) => {
 		case GET_PROFILE:
 			return {
 				...state,
-				profile: payload,
+				profile: payload.profile,
 				loading: false,
 			};
-		case PROFILE_ERR:
+		case PROFILE_ERROR:
+			console.log('PROFILE');
 			return {
 				...state,
 				error: payload,
+				loading: false,
+			};
+		case CLEAR_PROFILE:
+			return {
+				...state,
+				profile: null,
 				loading: false,
 			};
 		default:

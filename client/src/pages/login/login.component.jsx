@@ -2,9 +2,10 @@ import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { loginUser } from '../../redux/auth/auth.actions';
+import { loginUser, loadUser } from '../../redux/auth/auth.actions';
 import { setAlert } from '../../redux/alert/alert.action';
 import { Redirect } from 'react-router-dom';
+import setAuthToken from '../../redux/utils/setAuthToken';
 
 const Login = ({ loginUser, setAlert, isAuthenticated }) => {
 	const [formData, setFormData] = useState({
@@ -25,13 +26,14 @@ const Login = ({ loginUser, setAlert, isAuthenticated }) => {
 		evt.preventDefault();
 		try {
 			loginUser(email, password);
+			// loadUser()
 		} catch (error) {
 			console.log(error.response.data);
 		}
 	};
 
 	if (isAuthenticated) {
-		console.log("REDIRECTED")
+		console.log('REDIRECTED');
 		return <Redirect to="/dashboard" />;
 	}
 

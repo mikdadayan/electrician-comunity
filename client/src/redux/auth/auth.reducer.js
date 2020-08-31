@@ -21,6 +21,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
 				loading: false,
 			};
 		case USER_LOADED:
+			console.log(action.payload)
 			return {
 				...state,
 				isAuthenticated: true,
