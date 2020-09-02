@@ -210,9 +210,9 @@ router.put(
 	[
 		auth,
 		[
-			check('title', 'Status is required').not().isEmpty(),
-			check('company', 'Skills is required').not().isEmpty(),
-			check('from', 'Skills is required').not().isEmpty(),
+			check('title', 'Title is required').trim().not().isEmpty(),
+			check('company', 'Company is required').trim().not().isEmpty(),
+			check('from', 'From field is required').trim().not().isEmpty(),
 		],
 	],
 	async (req, res, next) => {
