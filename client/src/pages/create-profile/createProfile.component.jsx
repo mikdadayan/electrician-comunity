@@ -60,12 +60,12 @@ const CreateProfile = ({addCurrentUserProfile, history, profile}) => {
 			<small>* = required field</small>
 			<form className="form" onSubmit={handleSubmit}>
 				<div className="form-group">
-					<select name="status" value={status} onChange={handleChange} value={status}>
+				<select name="status" value={status} onChange={handleChange} value={status}>
 						<option value="0">* Select Professional Status</option>
-						<option value="Developer">Developer</option>
-						<option value="Junior Developer">Junior Developer</option>
-						<option value="Senior Developer">Senior Developer</option>
-						<option value="Manager">Manager</option>
+						<option value="Electrical Engineer I">Electrical Engineer I</option>
+						<option value="Electrical Engineer II">Electrical Engineer II</option>
+						<option value="Electrical Engineer III">Electrical Engineer III</option>
+						<option value="Electrical Engineer">Electrical Engineer</option>
 						<option value="Student or Learning">Student or Learning</option>
 						<option value="Instructor">Instructor or Teacher</option>
 						<option value="Intern">Intern</option>
@@ -93,7 +93,7 @@ const CreateProfile = ({addCurrentUserProfile, history, profile}) => {
 				</div>
 				<div className="form-group">
 					<input type="text" placeholder="* Skills" name="skills" onChange={handleChange} value={skills} />
-					<small className="form-text">Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)</small>
+					<small className="form-text">Please use comma separated values (eg. AutoCAD,Matlab,AutoDesk)</small>
 				</div>
 				<div className="form-group">
 					<textarea

@@ -18,6 +18,7 @@ import EditProfile from './pages/edit-profile/editProfile.component';
 import './App.css';
 import { getCurrentUserProfile } from './redux/profile/profile.actions';
 import { connect } from 'react-redux';
+import AddExperience from './pages/add-experience/addExperience.component';
 
 if (localStorage.token) {
 	console.log(localStorage.token)
@@ -44,6 +45,7 @@ const App = ({loadUser, getCurrentUserProfile}) => {
 					<PrivateRoute exact path='/dashboard' component={Dashboard}/>
 					<PrivateRoute exact path='/create-profile' component={CreateProfile}/>
 					<PrivateRoute exact path='/edit-profile' component={EditProfile}/>
+					<PrivateRoute exact path='/add-experience' component={AddExperience}/>
 				</Switch>
 			</section>
 		</Fragment>

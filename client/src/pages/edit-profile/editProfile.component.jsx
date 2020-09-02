@@ -1,9 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { addCurrentUserProfile } from '../../redux/profile/profile.actions';
+import { addCurrentUserProfile, getCurrentUserProfile } from '../../redux/profile/profile.actions';
 import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router-dom';
 
-const EditProfile = ({ addCurrentUserProfile, history, profile }) => {
+const EditProfile = ({ addCurrentUserProfile, history, profile: { loading, profile } }) => {
 	const [formData, setFormData] = useState({
 		company: '',
 		website: '',
@@ -34,6 +35,24 @@ const EditProfile = ({ addCurrentUserProfile, history, profile }) => {
 
 	const [displaySocialInputs, toggleSocialInputs] = useState(true);
 
+	useEffect(() => {
+		// getCurrentUserProfile()
+
+		setFormData({
+			company: loading || !profile.company ? '' : profile.company,
+			website: loading || !profile.website ? '' : profile.website,
+			location: loading || !profile.location ? '' : profile.location,
+			status: loading || !profile.status ? '' : profile.status,
+			skills: loading || !profile.skills ? '' : profile.skills.join(', '),
+			bio: loading || !profile.bio ? '' : profile.bio,
+			twitter: loading || !profile.social ? '' : profile.social.twitter,
+			facebook: loading || !profile.social ? '' : profile.social.facebook,
+			linkedin: loading || !profile.website ? '' : profile.social.linkedin,
+			youtube: loading || !profile.website ? '' : profile.social.youtube,
+			instagram: loading || !profile.website ? '' : profile.social.instagram,
+		});
+	}, [loading]);
+
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
@@ -53,10 +72,10 @@ const EditProfile = ({ addCurrentUserProfile, history, profile }) => {
 				<div className="form-group">
 					<select name="status" value={status} onChange={handleChange} value={status}>
 						<option value="0">* Select Professional Status</option>
-						<option value="Developer">Developer</option>
-						<option value="Junior Developer">Junior Developer</option>
-						<option value="Senior Developer">Senior Developer</option>
-						<option value="Manager">Manager</option>
+						<option value="Electrical Engineer I">Electrical Engineer I</option>
+						<option value="Electrical Engineer II">Electrical Engineer II</option>
+						<option value="Electrical Engineer III">Electrical Engineer III</option>
+						<option value="Electrical Engineer">Electrical Engineer</option>
 						<option value="Student or Learning">Student or Learning</option>
 						<option value="Instructor">Instructor or Teacher</option>
 						<option value="Intern">Intern</option>
@@ -65,13 +84,7 @@ const EditProfile = ({ addCurrentUserProfile, history, profile }) => {
 					<small className="form-text">Give us an idea of where you are at in your career</small>
 				</div>
 				<div className="form-group">
-					<input
-						type="text"
-						placeholder="Company"
-						name="company"
-						onChange={handleChange}
-						value={company}
-					/>
+					<input type="text" placeholder="Company" name="company" onChange={handleChange} value={company} />
 					<small className="form-text">Could be your own company or one you work for</small>
 				</div>
 				<div className="form-group">
@@ -90,7 +103,7 @@ const EditProfile = ({ addCurrentUserProfile, history, profile }) => {
 				</div>
 				<div className="form-group">
 					<input type="text" placeholder="* Skills" name="skills" onChange={handleChange} value={skills} />
-					<small className="form-text">Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)</small>
+					<small className="form-text">Please use comma separated values (eg. AutoCAD,Matlab,AutoDesk)</small>
 				</div>
 				<div className="form-group">
 					<textarea
@@ -172,9 +185,9 @@ const EditProfile = ({ addCurrentUserProfile, history, profile }) => {
 					</Fragment>
 				)}
 				<input type="submit" className="btn btn-primary my-1" />
-				<a className="btn btn-light my-1" href="dashboard.html">
+				<Link className="btn btn-light my-1" to="/dashboard">
 					Go Back
-				</a>
+				</Link>
 			</form>
 		</Fragment>
 	);
@@ -183,7 +196,7 @@ const EditProfile = ({ addCurrentUserProfile, history, profile }) => {
 EditProfile.propTypes = { profile: PropTypes.object.isRequired };
 
 const mapStateToProps = (state) => ({
-	profile: state.profile.profile,
+	profile: state.profile,
 });
 
-export default connect(mapStateToProps, { addCurrentUserProfile })(EditProfile);
+export default withRouter(connect(mapStateToProps, { addCurrentUserProfile, getCurrentUserProfile })(EditProfile));
