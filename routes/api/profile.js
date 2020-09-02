@@ -27,7 +27,7 @@ router.get("/myprofile", auth, async (req, res, next) => {
         msg: "There is not profile for this user",
       });
     }
-    console.log(profile);
+    // console.log(profsile);
     return res.status(200).json({
       msg: "My Profile Endpoint",
       profile: profile,

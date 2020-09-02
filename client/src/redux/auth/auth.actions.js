@@ -9,7 +9,7 @@ const { SIGNUP_SUCCESS, SIGNUP_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOG
 const { CLEAR_PROFILE } = ProfileActionTypes;
 
 export const loadUser = () => async (dispatch) => {
-	console.log("&&&7&&")
+	// console.log("&&&7&&")
 	if (localStorage.token) {
 		setAuthToken(localStorage.token);
 	}
@@ -53,7 +53,7 @@ export const signupUser = (name, email, password) => async (dispatch) => {
 };
 
 export const loginUser = (email, password) => async (dispatch) => {
-	console.log("^^^6^^")
+	// console.log("^^^6^^")
 	const config = {
 		headers: { 'Content-Type': 'application/json' },
 	};

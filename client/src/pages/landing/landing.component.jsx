@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import PropTypes from 'prop-types'
 
 
-const Landing = ({auth: {isAuthenticated}}) => {
+const Landing = ({auth: {isAuthenticated}, history}) => {
 
   if(isAuthenticated){
-    return <Redirect to='/dashboard'/>
+    history.push('/dashboard')
   }
 
   return (
@@ -29,7 +29,7 @@ const Landing = ({auth: {isAuthenticated}}) => {
 }
 
 Landing.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
+  auth: PropTypes.object.isRequired,
 }
 
 
