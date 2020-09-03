@@ -5,6 +5,7 @@ const ProfileActionTypes = {
   CREATE_PROFILE: "CREATE_PROFILE",
   CREATE_ERROR: "CREATE_ERROR",
   ADD_EXPERIENCE: "ADD_EXPERIENCE",
+  ADD_EDUCATION: "ADD_EDUCATION",
 };
 
 export default ProfileActionTypes;

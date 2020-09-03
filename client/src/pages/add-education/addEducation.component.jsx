@@ -1,16 +1,16 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { AddProfileExperience } from '../../redux/profile/profile.actions';
+import { AddProfileEducation } from '../../redux/profile/profile.actions';
 
-const AddExperience = ({ AddProfileExperience, history }) => {
-	const [experienceData, setExperienceData] = useState({
-		title: '',
-		company: '',
-		location: '',
+const AddEducation = ({ AddProfileEducation, history }) => {
+	const [educationData, setEducationData] = useState({
+		school: '',
+		degree: '',
+		fieldofstudy: '',
 		from: '',
 		to: '',
 		current: false,
@@ -19,53 +19,52 @@ const AddExperience = ({ AddProfileExperience, history }) => {
 
 	const [toDateDisabled, toggleDisabled] = useState(false);
 
-	const { title, company, location, from, to, current, description } = experienceData;
+	const { school, degree, fieldofstudy, from, to, current, description } = educationData;
 
 	const handleChange = (e) => {
-		setExperienceData({ ...experienceData, [e.target.name]: e.target.value });
+		setEducationData({ ...educationData, [e.target.name]: e.target.value });
 	};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    AddProfileExperience(experienceData, history);
-  }
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		AddProfileEducation(educationData, history);
+	};
 
 	return (
 		<Fragment>
-			<h1 className="large text-primary">Add An Experience</h1>
+			<h1 className="large text-primary">Add Your Education</h1>
 			<p className="lead">
-				<i className="fas fa-code-branch"></i> Add any engineer positions that you have had in the
-				past
+				<i className="fas fa-code-branch"></i> Add any school, bootcamp, etc that you have attended
 			</p>
 			<small>* = required field</small>
 			<form className="form" onSubmit={handleSubmit}>
 				<div className="form-group">
 					<input
 						type="text"
-						placeholder="* Job Title"
-						name="title"
+						placeholder="* School"
+						name="school"
 						onChange={handleChange}
 						required
-						value={title}
+						value={school}
 					/>
 				</div>
 				<div className="form-group">
 					<input
 						type="text"
-						placeholder="* Company"
-						name="company"
+						placeholder="* Degree"
+						name="degree"
 						onChange={handleChange}
 						required
-						value={company}
+						value={degree}
 					/>
 				</div>
 				<div className="form-group">
 					<input
 						type="text"
-						placeholder="Location"
-						name="location"
+						placeholder="Field Of Study"
+						name="fieldofstudy"
 						onChange={handleChange}
-						value={location}
+						value={fieldofstudy}
 					/>
 				</div>
 				<div className="form-group">
@@ -79,12 +78,12 @@ const AddExperience = ({ AddProfileExperience, history }) => {
 							name="current"
 							checked={current}
 							onChange={(e) => {
-								setExperienceData({ ...experienceData, current: !current });
+								setEducationData({ ...educationData, current: !current });
 								toggleDisabled(!toDateDisabled);
 							}}
 							value={current}
 						/>{' '}
-						Current Job
+						Current School or Bootcamp
 					</p>
 				</div>
 				<div className="form-group">
@@ -96,7 +95,7 @@ const AddExperience = ({ AddProfileExperience, history }) => {
 						name="description"
 						cols="30"
 						rows="5"
-						placeholder="Job Description"
+						placeholder="Program Description"
 						onChange={handleChange}
 						value={description}
 					></textarea>
@@ -110,12 +109,12 @@ const AddExperience = ({ AddProfileExperience, history }) => {
 	);
 };
 
-AddExperience.propTypes = {
-	AddProfileExperience: PropTypes.func.isRequired,
-}
+AddEducation.propTypes = {
+	AddProfileEducation: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
 	profile: state.profile,
 });
 
-export default withRouter(connect(mapStateToProps, { AddProfileExperience })(AddExperience));
+export default withRouter(connect(mapStateToProps, { AddProfileEducation })(AddEducation));

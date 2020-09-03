@@ -1,6 +1,6 @@
 import ProfileActionTypes from './profile.types';
 
-const { PROFILE_ERROR, GET_PROFILE, CLEAR_PROFILE, CREATE_PROFILE, CREATE_ERROR, ADD_EXPERIENCE } = ProfileActionTypes;
+const { PROFILE_ERROR, GET_PROFILE, CLEAR_PROFILE, CREATE_PROFILE, CREATE_ERROR, ADD_EXPERIENCE, ADD_EDUCATION } = ProfileActionTypes;
 const INITIAL_STATE = {
 	profile: null,
 	profiles: [],
@@ -21,7 +21,13 @@ const profileReducer = (state = INITIAL_STATE, action) => {
 		case ADD_EXPERIENCE:
 			return {
 				...state,
-				profile: {...state.profile, experience: payload.experience},
+				profile: { ...state.profile, experience: payload.experience },
+				loading: false,
+			};
+		case ADD_EDUCATION:
+			return {
+				...state,
+				profile: { ...state.profile, education: payload.education },
 				loading: false,
 			};
 		case PROFILE_ERROR:

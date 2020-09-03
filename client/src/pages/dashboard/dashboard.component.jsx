@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { loadUser } from '../../redux/auth/auth.actions';
 import { Link } from 'react-router-dom';
 import DashboardActions from '../../components/dashboard-actions/dashboard-actions.component';
+import ExperienceDisplay from '../../components/experience-display/experience-display.component';
+import EducationDisplay from '../../components/education-display/education-display.component';
 
 
 export const Dashboard = ({ getCurrentUserProfile, loadUser, auth: { user }, profile: { loading, profile } }) => {
@@ -29,7 +31,11 @@ export const Dashboard = ({ getCurrentUserProfile, loadUser, auth: { user }, pro
 				<FontAwesomeIcon icon={['fas', 'user']} /> Welcome {user && user.name}
 			</p>
 			{profile !== null ? (
-				<DashboardActions/>
+				<Fragment>
+					<DashboardActions />
+					<ExperienceDisplay />
+					<EducationDisplay/>
+				</Fragment>
 			) : (
 				<Fragment>
 					<p>You have not yet setup a profile, please add some info</p>
