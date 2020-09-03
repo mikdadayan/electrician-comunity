@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 const Landing = ({auth: {isAuthenticated}, history}) => {
 
   if(isAuthenticated){
-    history.push('/dashboard')
+    return <Redirect to='/dashboard' />
   }
 
   return (

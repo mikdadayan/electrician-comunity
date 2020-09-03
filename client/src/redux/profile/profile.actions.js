@@ -2,7 +2,15 @@ import axios from 'axios';
 import ProfileActionTypes from './profile.types';
 import { setAlert } from '../alert/alert.action';
 
-const { GET_PROFILE, PROFILE_ERROR, CREATE_PROFILE, CREATE_ERROR, ADD_EXPERIENCE, ADD_EDUCATION } = ProfileActionTypes;
+const {
+	GET_PROFILE,
+	PROFILE_ERROR,
+	CREATE_PROFILE,
+	CREATE_ERROR,
+	ADD_EXPERIENCE,
+	ADD_EDUCATION,
+	CLEAR_PROFILE,
+} = ProfileActionTypes;
 
 export const getCurrentUserProfile = () => async (dispatch) => {
 	try {
@@ -51,7 +59,6 @@ export const addCurrentUserProfile = (profile, history, edit = false) => async (
 	}
 };
 
-
 export const AddProfileExperience = (experience, history, edit = false) => async (dispatch) => {
 	const config = {
 		headers: { 'Content-Type': 'application/json' },
@@ -66,7 +73,7 @@ export const AddProfileExperience = (experience, history, edit = false) => async
 		});
 
 		// dispatch(setAlert(edit ? 'Profile Updated' : 'Added Experience', 'success'));
-		dispatch(setAlert( 'Added Experience', 'success'));
+		dispatch(setAlert('Added Experience', 'success'));
 
 		history.push('/dashboard');
 	} catch (error) {
@@ -98,7 +105,7 @@ export const AddProfileEducation = (education, history) => async (dispatch) => {
 		});
 
 		// dispatch(setAlert(edit ? 'Profile Updated' : 'Added Experience', 'success'));
-		dispatch(setAlert( 'Added Education', 'success'));
+		dispatch(setAlert('Added Education', 'success'));
 
 		history.push('/dashboard');
 	} catch (error) {
@@ -113,5 +120,99 @@ export const AddProfileEducation = (education, history) => async (dispatch) => {
 		dispatch({
 			type: CREATE_ERROR,
 		});
+	}
+};
+
+export const DeleteEducation = (eduId) => async (dispatch) => {
+	try {
+		const res = await axios.delete(`http://localhost:5000/api/profile/education/${eduId}`);
+		console.log(res);
+		dispatch({
+			type: GET_PROFILE,
+			payload: res.data,
+		});
+
+		// dispatch(setAlert(edit ? 'Profile Updated' : 'Added Experience', 'success'));
+		dispatch(setAlert('Education Deleted.', 'success'));
+
+		// history.push('/dashboard');
+	} catch (error) {
+		const errors = error.response.data.errors;
+
+		if (errors) {
+			errors.forEach((error) => {
+				dispatch(setAlert(error.msg, 'danger'));
+			});
+		}
+
+		dispatch({
+			type: CREATE_ERROR,
+		});
+	}
+};
+
+export const DeleteExperience = (expId, history) => async (dispatch) => {
+	const config = {
+		headers: { 'Content-Type': 'application/json' },
+	};
+	try {
+		const res = await axios.delete(`http://localhost:5000/api/profile/experience/${expId}`);
+		console.log(res);
+		dispatch({
+			type: GET_PROFILE,
+			payload: res.data,
+		});
+
+		// dispatch(setAlert(edit ? 'Profile Updated' : 'Added Experience', 'success'));
+		dispatch(setAlert('Experience Deleted.', 'success'));
+
+		// history.push('/dashboard');
+	} catch (error) {
+		const errors = error.response.data.errors;
+
+		if (errors) {
+			errors.forEach((error) => {
+				dispatch(setAlert(error.msg, 'danger'));
+			});
+		}
+
+		dispatch({
+			type: CREATE_ERROR,
+		});
+	}
+};
+
+export const DeleteAccount = (history) => async (dispatch) => {
+	if (window.confirm('Are you sure? This can NOT be undone!')) {
+		try {
+			const res = await axios.delete(`http://localhost:5000/api/profile/delete`);
+			console.log(res);
+			dispatch({
+				type: CLEAR_PROFILE,
+				payload: res.data,
+			});
+
+			dispatch({
+				type: 'ACCOUTN_DELETE',
+				payload: res.data,
+			});
+
+			// dispatch(setAlert(edit ? 'Profile Updated' : 'Added Experience', 'success'));
+			dispatch(setAlert('Account Deleted.', 'success'));
+
+			history.push('/login');
+		} catch (error) {
+			const errors = error.response.data.errors;
+
+			if (errors) {
+				errors.forEach((error) => {
+					dispatch(setAlert(error.msg, 'danger'));
+				});
+			}
+
+			dispatch({
+				type: CREATE_ERROR,
+			});
+		}
 	}
 };

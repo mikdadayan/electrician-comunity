@@ -3,18 +3,25 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
-import { getCurrentUserProfile } from '../../redux/profile/profile.actions';
+import { getCurrentUserProfile, DeleteAccount } from '../../redux/profile/profile.actions';
 import setAuthToken from '../../redux/utils/setAuthToken';
 import Spinner from '../../components/spinner/spinner.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { loadUser } from '../../redux/auth/auth.actions';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import DashboardActions from '../../components/dashboard-actions/dashboard-actions.component';
 import ExperienceDisplay from '../../components/experience-display/experience-display.component';
 import EducationDisplay from '../../components/education-display/education-display.component';
 
 
-export const Dashboard = ({ getCurrentUserProfile, loadUser, auth: { user }, profile: { loading, profile } }) => {
+export const Dashboard = ({
+	getCurrentUserProfile,
+	loadUser,
+	DeleteAccount,
+	auth: { user },
+	profile: { loading, profile },
+	history,
+}) => {
 	// console.log(props);
 	useEffect(() => {
 		setAuthToken(localStorage.token);
@@ -34,7 +41,12 @@ export const Dashboard = ({ getCurrentUserProfile, loadUser, auth: { user }, pro
 				<Fragment>
 					<DashboardActions />
 					<ExperienceDisplay />
-					<EducationDisplay/>
+					<EducationDisplay />
+					<div className="my-2">
+						<button className="btn btn-danger" onClick={()=> DeleteAccount(history)}>
+							<i className="fas fa-user-times"></i> Delete My Account
+						</button>
+					</div>
 				</Fragment>
 			) : (
 				<Fragment>
@@ -59,4 +71,4 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCurrentUserProfile, loadUser })(Dashboard);
+export default withRouter(connect(mapStateToProps, { getCurrentUserProfile, loadUser, DeleteAccount })(Dashboard));
