@@ -20,6 +20,8 @@ import EditProfile from './pages/edit-profile/editProfile.component';
 import { getCurrentUserProfile } from './redux/profile/profile.actions';
 import AddExperience from './pages/add-experience/addExperience.component';
 import AddEducation from './pages/add-education/addEducation.component';
+import Profiles from './pages/profiles/profiles.component';
+import Profile from './pages/profile/profile.component';
 
 if (localStorage.token) {
 	console.log(localStorage.token)
@@ -34,6 +36,7 @@ const App = ({loadUser, getCurrentUserProfile}) => {
 		getCurrentUserProfile()
 	}, []);
 
+
 	return (
 		<Fragment>
 			<Navbar />
@@ -43,6 +46,8 @@ const App = ({loadUser, getCurrentUserProfile}) => {
 				<Switch>
 					<Route exact path="/signup" component={SignUp} />
 					<Route exact path="/login" component={Login} />
+					<Route exact path="/engineers" component={Profiles} />
+					<Route exact path="/engineers/:userId" component={Profile} />
 					<PrivateRoute exact path='/dashboard' component={Dashboard}/>
 					<PrivateRoute exact path='/create-profile' component={CreateProfile}/>
 					<PrivateRoute exact path='/edit-profile' component={EditProfile}/>

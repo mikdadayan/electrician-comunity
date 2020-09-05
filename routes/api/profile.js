@@ -97,14 +97,10 @@ router.post(
 		if (linkedin) profileFields.social.linkedin = linkedin;
 
 		try {
-      let profile = await Profile.findOne({ user: req.user.id });
+			let profile = await Profile.findOne({ user: req.user.id });
 			if (profile) {
-        console.log(req.user.id)
-				profile = await Profile.findOneAndUpdate(
-					{ user: req.user.id },
-					{ $set: profileFields },
-					{ new: true }
-        );
+				console.log(req.user.id);
+				profile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true });
 				return res.status(202).json({
 					msg: 'Changes on profile executed.',
 					profile: profile,
@@ -119,9 +115,7 @@ router.post(
 		} catch (error) {
 			console.error(error.message);
 			res.status(500).json({
-        errors: [
-          {msg: "Server error..."},
-        ]
+				errors: [{ msg: 'Server error...' }],
 			});
 		}
 	}
@@ -160,8 +154,9 @@ router.get('/profiles', async (req, res, next) => {
 // @access  Public
 router.get('/:userId', async (req, res, next) => {
 	try {
+		console.log('Before issue', req.params.userId);
 		const profile = await Profile.findOne({ user: req.params.userId }).populate('user', ['name', 'avatar']).exec();
-		console.log(profile);
+		console.log('After issue');
 		if (!profile) {
 			return res.status(400).json({
 				msg: 'Profile not found.',
@@ -180,7 +175,7 @@ router.get('/:userId', async (req, res, next) => {
 	} catch (error) {
 		console.error('%%%%%%%%%%%%%%%%%%%%%%%', error);
 		if (error.kind == 'ObjectId') {
-			return res.status(400).json({ msg: 'Profile not found.' });
+			return res.status(404).json({ errors: [{ msg: 'Profile not found.' }] });
 		}
 		res.status(500).json({ error: 'Server Error...' });
 	}
@@ -340,7 +335,7 @@ router.delete('/education/:eduId', auth, async (req, res, next) => {
 	try {
 		const profile = await Profile.findOne({ user: req.user.id });
 		const updatedEdu = profile.education.filter((education) => education._id != req.params.eduId);
-		console.log(updatedEdu)
+		console.log(updatedEdu);
 		// console.log(updatedEdu);
 		profile.education = updatedEdu;
 		await profile.save();

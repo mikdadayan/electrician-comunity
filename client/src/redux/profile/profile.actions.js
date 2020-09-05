@@ -10,6 +10,8 @@ const {
 	ADD_EXPERIENCE,
 	ADD_EDUCATION,
 	CLEAR_PROFILE,
+	GET_ALL_PROFILES,
+	PROFILES_ERROR,
 } = ProfileActionTypes;
 
 export const getCurrentUserProfile = () => async (dispatch) => {
@@ -216,3 +218,49 @@ export const DeleteAccount = (history) => async (dispatch) => {
 		}
 	}
 };
+
+export const GetProfiles = () => async (dispatch) => {
+	try {
+		const res = await axios.get(`http://localhost:5000/api/profile/profiles`);
+		console.log(res);
+		dispatch({
+			type: GET_ALL_PROFILES,
+			payload: res.data,
+		});
+	} catch (error) {
+		const errors = error.response.data.errors;
+
+		if (errors) {
+			errors.forEach((error) => {
+				dispatch(setAlert(error.msg, 'danger'));
+			});
+		}
+		dispatch({
+			type: PROFILES_ERROR,
+		});
+	}
+};
+
+
+export const GetProfileByUserId = (userId) => async dispatch => {
+	try {
+		const res = await axios.get(`http://localhost:5000/api/profile/${userId}`);
+		console.log(res);
+		dispatch({
+			type: GET_PROFILE,
+			payload: res.data,
+		});
+	} catch (error) {
+		const errors = error.response.data.errors;
+
+		if (errors) {
+		errors.forEach((error) => {
+				dispatch(setAlert(error.msg, 'danger'));
+			});
+		}
+		dispatch({
+			type: PROFILE_ERROR,
+			payload: { msg: error.response.statusText, status: error.response.status },
+		});
+	}
+} 

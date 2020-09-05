@@ -21,11 +21,12 @@ const isAuth = require('../../middlewares/is-auth');
 // @access  Public
 router.get('/', isAuth, async (req, res, next) => {
 	try {
-		const user = await User.findById({ _id: req.user.id }).select('name email');
+		const user = await User.findById({ _id: req.user.id }).select('name email _id');
 		res.status(200).json({
 			user: {
 				name: user.name,
 				email: user.email,
+				_id: user._id
 			},
 		});
 	} catch (error) {
