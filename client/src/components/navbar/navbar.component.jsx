@@ -45,6 +45,13 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, loading }, history }) => 
 					) : (
 						<Fragment>
 							<li>
+								<NavLink activeStyle={{ color: '#ff9138' }} to="/posts">
+									{/* <i className="fas fa-columns"> </i> */}
+									<i className="far fa-clone"></i>
+									<span className="hide-sm"> Posts</span>
+								</NavLink>
+							</li>
+							<li>
 								<NavLink activeStyle={{ color: '#ff9138' }} to="/dashboard">
 									{/* <i className="fas fa-columns"> </i> */}
 									<FontAwesomeIcon icon={['fas', 'columns']} />

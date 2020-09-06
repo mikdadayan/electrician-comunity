@@ -154,9 +154,7 @@ router.get('/profiles', async (req, res, next) => {
 // @access  Public
 router.get('/:userId', async (req, res, next) => {
 	try {
-		console.log('Before issue', req.params.userId);
 		const profile = await Profile.findOne({ user: req.params.userId }).populate('user', ['name', 'avatar']).exec();
-		console.log('After issue');
 		if (!profile) {
 			return res.status(400).json({
 				msg: 'Profile not found.',

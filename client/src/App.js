@@ -22,6 +22,7 @@ import AddExperience from './pages/add-experience/addExperience.component';
 import AddEducation from './pages/add-education/addEducation.component';
 import Profiles from './pages/profiles/profiles.component';
 import Profile from './pages/profile/profile.component';
+import Posts from './pages/posts/posts.component';
 
 if (localStorage.token) {
 	console.log(localStorage.token)
@@ -53,6 +54,7 @@ const App = ({loadUser, getCurrentUserProfile}) => {
 					<PrivateRoute exact path='/edit-profile' component={EditProfile}/>
 					<PrivateRoute exact path='/add-experience' component={AddExperience}/>
 					<PrivateRoute exact path='/add-education' component={AddEducation}/>
+					<PrivateRoute exact path='/posts' component={Posts}/>
 				</Switch>
 			</section>
 		</Fragment>
