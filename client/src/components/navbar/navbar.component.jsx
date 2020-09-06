@@ -46,8 +46,7 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, loading }, history }) => 
 						<Fragment>
 							<li>
 								<NavLink activeStyle={{ color: '#ff9138' }} to="/posts">
-									{/* <i className="fas fa-columns"> </i> */}
-									<i className="far fa-clone"></i>
+									<FontAwesomeIcon icon="clone" mask={['far', 'fa']} />
 									<span className="hide-sm"> Posts</span>
 								</NavLink>
 							</li>
