@@ -67,7 +67,7 @@ router.get('/', auth, async (req, res, next) => {
 // @access  Private
 router.get('/:postId', auth, async (req, res, next) => {
 	try {
-		const post = await Post.findById(req.params.postId);
+		const post = await Post.findById(req.params.postId).populate('users', ['name', 'avatar']).exec();
 
 		if (!post) {
 			return res.status(404).json({
@@ -180,6 +180,7 @@ router.put(
 			});
 		}
 		const { comment } = req.body;
+
 		try {
 			const user = await User.findById(req.user.id).sort('-password');
 			const post = await Post.findById(req.params.postId);
@@ -190,7 +191,6 @@ router.put(
 				name: user.name,
 				avatar: user.avatar,
 			};
-
 			post.comments.unshift(newComment);
 			await post.save();
 			res.status(200).json({
