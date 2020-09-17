@@ -1,0 +1,6 @@
+{
+  "mongoURI": "Your MongoDB API URI",
+  "jwtSecret": "Your JWT Secret Key",
+  "githubClientId": "",
+  "githubClientSecret": ""
+}
