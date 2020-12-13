@@ -11,7 +11,7 @@ connect this app to your mongoDB server in app.js
 run npm install
 run npm run dev
 
-
+![capture1](https://user-images.githubusercontent.com/64751116/102014358-eb669e80-3d6e-11eb-91ae-175b24d74687.png)
 
 Technologies:
 
