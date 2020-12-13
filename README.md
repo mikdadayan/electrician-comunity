@@ -17,12 +17,16 @@ Technologies:
 
 Node.js\
 Express.js\
-express-session\
+axios\
+bcryptjs\
+config\
 express-validator\
-mogoDB\
+jsonwebtoken\
+mongoDB\
 mongoose\
-connect-flash\
 bootstrap 4\
 multer\
-nodemailer\
-nodemailer-sendgrid-transport
+uuid\
+request\
+redux-thunk\
+
