@@ -28,5 +28,5 @@ bootstrap 4\
 multer\
 uuid\
 request\
-redux-thunk\
+redux-thunk
 
