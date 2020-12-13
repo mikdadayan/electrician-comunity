@@ -12,6 +12,8 @@ run npm install
 run npm run dev
 
 ![capture1](https://user-images.githubusercontent.com/64751116/102014358-eb669e80-3d6e-11eb-91ae-175b24d74687.png)
+![capture2](https://user-images.githubusercontent.com/64751116/102014369-02a58c00-3d6f-11eb-97d8-0f57fedf94ee.png)
+
 
 Technologies:
 
