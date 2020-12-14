@@ -20,7 +20,6 @@ Technologies:
 
 Node.js\
 Express.js\
-axios\
 bcryptjs\
 config\
 express-validator\
@@ -30,6 +29,7 @@ mongoose\
 bootstrap 4\
 multer\
 uuid\
+axios\
 request\
 redux-thunk
 
