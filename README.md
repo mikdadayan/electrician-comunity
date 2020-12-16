@@ -31,5 +31,6 @@ multer\
 uuid\
 axios\
 request\
-redux-thunk
+redux-thunk\
+nodemailer
 
