@@ -25,7 +25,7 @@ config\
 express-validator\
 jsonwebtoken\
 mongoDB\
-mongoose\
+mongoose
 
 bootstrap 4\
 multer\
