@@ -25,13 +25,13 @@ config\
 express-validator\
 jsonwebtoken\
 mongoDB\
-mongoose
+multer\
+mongoose\
+nodemailer
 
 bootstrap 4\
-multer\
 uuid\
 axios\
 request\
-redux-thunk\
-nodemailer
+redux-thunk
 
