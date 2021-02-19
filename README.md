@@ -1,7 +1,7 @@
 # Electrician Community
 Social Network for Electricians
 
-A Node.js web & React.js app
+A Node.js & React.js app
 
 Built with Node, Express.js, Bootstrap, MongoDB, React.js, Redux.
 
