@@ -6,7 +6,7 @@ A Node.js & React.js app
 Built with Node, Express.js, Bootstrap, MongoDB, React.js, Redux.
 
 # Getting Started
-clone this repo
+clone this repo\
 connect this app to your mongoDB server in app.js\
 run npm install\
 run npm run dev
