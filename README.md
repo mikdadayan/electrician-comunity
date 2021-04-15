@@ -18,6 +18,12 @@ Run` npm run dev
 
 Technologies:
 
+bootstrap 4\
+uuid\
+axios\
+request\
+redux-thunk
+
 Node.js\
 Express.js\
 bcryptjs\
@@ -29,9 +35,5 @@ multer\
 mongoose\
 nodemailer
 
-bootstrap 4\
-uuid\
-axios\
-request\
-redux-thunk
+
 
