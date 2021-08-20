@@ -14,7 +14,7 @@ const Landing = ({auth: {isAuthenticated}, history}) => {
     <section className="landing">
       <div className="dark-overlay">
         <div className="landing-inner">
-          <h1 className="x-large">Engineer Comunity</h1>
+          <h1 className="x-large">Engineers Community</h1>
           <p className="lead">
             Create a Engineer profile/portfolio, share posts and get help from
             other electrical engineers
