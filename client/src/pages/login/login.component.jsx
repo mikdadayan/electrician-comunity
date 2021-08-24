@@ -26,7 +26,6 @@ const Login = ({ loginUser, setAlert, isAuthenticated }) => {
     evt.preventDefault();
     try {
       loginUser(email, password);
-      // loadUser()
     } catch (error) {
       console.log(error.response.data);
     }
