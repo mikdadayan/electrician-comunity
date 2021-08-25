@@ -54,7 +54,6 @@ const postReducer = (state = INITIAL_STATE, action) => {
         posts: state.posts.filter((post) => post._id !== payload.id),
       };
     case ADD_COMMENT:
-      console.log(payload);
       return {
         ...state,
         post: { ...state.post, comments: payload.comments },
