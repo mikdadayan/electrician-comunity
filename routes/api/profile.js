@@ -27,7 +27,6 @@ router.get("/myprofile", auth, async (req, res, next) => {
         msg: "There is not profile for this user",
       });
     }
-    // console.log(profsile);
     return res.status(200).json({
       msg: "My Profile Endpoint",
       profile: profile,
@@ -102,7 +101,6 @@ router.post(
     try {
       let profile = await Profile.findOne({ user: req.user.id });
       if (profile) {
-        console.log(req.user.id);
         profile = await Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
@@ -136,7 +134,6 @@ router.get("/profiles", async (req, res, next) => {
     const profiles = await Profile.find()
       .populate("user", ["name", "avatar"])
       .exec();
-    console.log(profiles);
     if (profiles.length === 0) {
       return res.status(400).json({
         msg: "No profiles exists yet",
@@ -269,7 +266,6 @@ router.delete("/experience/:expId", auth, async (req, res, next) => {
     const updatedExp = profile.experience.filter(
       (experience) => experience._id != req.params.expId
     );
-    console.log(updatedExp);
     profile.experience = updatedExp;
     await profile.save();
     res.status(200).json({
